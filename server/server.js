@@ -12,7 +12,7 @@ var {User} 	= require ('./models/user.js');
 //mongodb://assana:pix2pash@ds135624.mlab.com:35624/nodeserverclass
 
 var app = express();
-const port = porcess.env.PORT || 3000;
+const port = process.env.PORT || 3000;
 
 app.use(bodyParser.json());
 
