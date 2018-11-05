@@ -7,7 +7,13 @@ var {Todo} 	= require ('./models/todo.js');
 var {User} 	= require ('./models/user.js');
 
 
+//var url = process.env.DATABASEURL || "mongodb://localhost:27017/yelp_camp";
+//mongoose.connect(url);
+//mongodb://assana:pix2pash@ds135624.mlab.com:35624/nodeserverclass
+
 var app = express();
+const port = porcess.env.PORT || 3000;
+
 app.use(bodyParser.json());
 
 app.post ('/todos',  (req, res) => {
@@ -49,8 +55,8 @@ app.get ('/todos/:id', (req, res) => {
     });
 });
 
-app.listen(3000, () => {
-    console.log ("Server started on port 3000");
+app.listen(port, () => {
+    console.log (`Server started on port ${port}`);
 });
 
 module.exports = {app};
