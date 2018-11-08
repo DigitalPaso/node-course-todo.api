@@ -75,6 +75,29 @@ UserSchema.statics.findByToken = function (token) {
     });
 }
 
+UserSchema.statics.findByCredentials = function (body) {
+    var User = this;	// Upper case... for model methods
+    var email = body.email;
+    var password = body.password;
+
+    return User.findOne({email}).then((user) => {
+	if (!user) {
+	    return Promise.reject();
+	}
+
+	// bcryptjs doesn't support promises... so we have to create our own promise
+	return new Promise((resolve, reject) => {
+	    bcrypt.compare (password, user.password, (err, res) => {
+	    if (res) 
+		resolve(user);
+	    else
+		return reject();
+	    });
+	});
+    });
+}
+
+
 UserSchema.pre ('save', function(next) {
     var user = this;
 
