@@ -27,7 +27,7 @@ var users = [
     tokens: [{
 	access: 'auth',
 	token: jwt.sign({_id: userOneID, access:'auth'},
-		'something').toString()
+		process.env.JWT_SECRET).toString()
     }]
 
     },
@@ -40,7 +40,7 @@ var users = [
     tokens: [{
 	access: 'auth',
 	token: jwt.sign({_id: userTwoID, access:'auth'},
-		'something').toString()
+		process.env.JWT_SECRET).toString()
     }]
     }
 ];
