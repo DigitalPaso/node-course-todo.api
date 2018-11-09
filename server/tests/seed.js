@@ -3,17 +3,21 @@ const {Todo} = require ('../models/todo.js');
 const {User} = require ('../models/user.js');
 const jwt = require ('jsonwebtoken');
 
+const userOneID = new ObjectID();
+const userTwoID = new ObjectID();
+
 var todos = [
     {_id: new ObjectID(),
-    text: "First test todo"},
+    text: "First test todo",
+    _creator: userOneID},
+
     {_id: new ObjectID(),
     text: "Second test todo",
     completed: "true",
-    completedAt: 239474864}
+    completedAt: 239474864,
+    _creator: userTwoID}
 ];
 
-const userOneID = new ObjectID();
-const userTwoID = new ObjectID();
 var users = [
     // user with valid auth data
     {
@@ -32,7 +36,12 @@ var users = [
     _id : userTwoID,
     email: 'cookie@foopity.com',
     password: 'userTwoPassword!',
-    // note: no tokens so we can get errors
+
+    tokens: [{
+	access: 'auth',
+	token: jwt.sign({_id: userTwoID, access:'auth'},
+		'something').toString()
+    }]
     }
 ];
 
